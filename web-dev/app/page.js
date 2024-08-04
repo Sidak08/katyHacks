@@ -115,22 +115,15 @@ export default function Home() {
       });
   };
 
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const wordTest = "hello";
-
-  const test = () => {
-    if (currentIndex < wordTest.length) {
-      setWord(word + wordTest[currentIndex]);
-      setCurrentIndex(currentIndex + 1);
-    }
-  };
-
   useEffect(() => {
-    if (selectedLanguage === "French") {
-      setWord("Bonjour");
-    } else if (selectedLanguage === "Spanish") {
-      setWord("Hola");
-    }
+    axios
+      .post("/translate", { word: word, language: selectedLanguage }, {})
+      .then((res) => {
+        setWord(res.data);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   }, [selectedLanguage]);
 
   return (
@@ -148,7 +141,7 @@ export default function Home() {
         />
         <button
           className="p-2 bg-opacity-60 w-[100px] h-[100px] z-10 absolute bottom-[5%] bg-[#D9D9D9] flex justify-center items-center rounded-[50%]"
-          onClick={test}
+          onClick={capture}
         >
           <img src="/camera.svg" width="50px" height="50px" alt="Logo" />
         </button>

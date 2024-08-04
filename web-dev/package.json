@@ -12,6 +12,7 @@
     "@chakra-ui/react": "^2.4.2",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
+    "@google-cloud/translate": "^8.3.0",
     "axios": "^1.7.3",
     "framer-motion": "^7.6.18",
     "next": "latest",
