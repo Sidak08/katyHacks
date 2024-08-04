@@ -1,18 +1,74 @@
 from flask import Flask, request, jsonify
 import joblib
 import numpy as np
+import io
+from PIL import Image
+from flask_cors import CORS
 
 app = Flask(__name__)
 
 # Load the trained model
 model = joblib.load('/Users/sidak/Development/kattyHacks/ml/Random Forest Model.pkl')
+CORS(app)
+
+def image_to_feature_vector(image, size=(28, 28), normalize=True):
+    """
+    Convert an image to a feature vector.
+
+    Parameters:
+    - image (PIL.Image.Image): PIL Image object.
+    - size (tuple): Desired size of the image (width, height). Default is (28, 28).
+    - normalize (bool): Whether to normalize pixel values to the range [0, 1]. Default is True.
+
+    Returns:
+    - numpy.ndarray: Flattened feature vector of the image.
+    """
+    # Convert to grayscale if not already
+    img = image.convert('L')
+
+    # Resize the image to the desired size
+    img = img.resize(size)
+
+    # Convert image to numpy array
+    image_array = np.array(img)
+
+    # Flatten the array
+    feature_vector = image_array.flatten()
+
+    if normalize:
+        feature_vector = feature_vector / 255.0
+
+    return feature_vector
 
 @app.route('/predict', methods=['POST'])
 def predict():
     print('Request received')
     try:
-        # Get JSON data from the request
-        data = request.get_json()
+        # Ensure a file part is present in the request
+        if 'file' not in request.files:
+            return jsonify({'error': 'No file part in the request'}), 400
+
+        file = request.files['file']
+
+        # Ensure the file part has a filename
+        if file.filename == '':
+            return jsonify({'error': 'No file selected for uploading'}), 400
+
+        # Read the image file
+        image = Image.open(io.BytesIO(file.read()))
+        feature_vector = image_to_feature_vector(image)
+        # feature_vector = image_to_feature_vector(image)
+        # print("Normalized feature vector:", feature_vector)
+
+        features_vector = np.round(feature_vector * 255).astype(int)
+        print( features_vector)
+
+        feature_vector_list = feature_vector.tolist()
+
+        # Prepare data for prediction
+        data = {
+            'features': feature_vector_list
+        }
 
         # Ensure 'features' is present in the JSON data
         if 'features' not in data:
