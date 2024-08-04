@@ -13,12 +13,12 @@ export default function Home(props) {
   const [ratio, setRatio] = useState(9 / 16);
 
   useEffect(() => {
-    // set ratio camera
     if (mobileScreen) {
       setRatio(9 / 16);
     } else {
-      setRatio(9 / 16);
+      setRatio(16 / 9);
     }
+    setRatio(16 / 9);
   }, [mobileScreen, ratio]);
 
   const capture = () => {
@@ -92,46 +92,24 @@ export default function Home(props) {
   };
 
   return (
-    <Box
-      bgImage={{ base: "none", md: "/112.png", lg: "/112.png" }}
-      bgPosition="center"
-      bgSize="cover"
-      h="100vh"
-    >
+    <div className="bg-black">
       <Center>
-        <Box
-          maxW="sm"
-          mt={{ base: "0px", md: "10px", lg: "10px" }}
-          height={{ base: "100%", md: "50%", lg: "25%" }}
-          width={{ base: "600px", md: "50%", lg: "25%" }}
-          borderWidth={{ base: "0px", md: "1px", lg: "1px" }}
-          bg="teal.400"
-          justifyContent="center"
-          overflow="hidden"
-          position={{ base: "", md: "", lg: "relative" }}
-          borderRadius="lg"
-          rounded={{ base: "none", md: "24", lg: "24" }}
-        >
-          <Flex direction="column" background="white">
-            <Center>
-              <Camera
-                ref={camera}
-                numberOfCamerasCallback={setNumberOfCameras}
-                facingMode="user"
-                aspectRatio={ratio}
-              />
-              <img
-                src="/camera.svg"
-                width="70px"
-                height="70px"
-                alt="Logo"
-                style={imageCamera}
-                onClick={capture}
-              />
-            </Center>
-          </Flex>
-        </Box>
+        <Camera
+          ref={camera}
+          numberOfCamerasCallback={setNumberOfCameras}
+          facingMode="user"
+          aspectRatio={ratio}
+          className="w-full h-full"
+        />
+        <img
+          src="/camera.svg"
+          width="70px"
+          height="70px"
+          alt="Logo"
+          style={imageCamera}
+          onClick={capture}
+        />
       </Center>
-    </Box>
+    </div>
   );
 }
