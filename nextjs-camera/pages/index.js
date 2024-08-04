@@ -3,6 +3,7 @@ import { Box, Center, Flex, useMediaQuery } from "@chakra-ui/react";
 import { Camera } from "react-camera-pro";
 import axios from "axios";
 import { useRouter } from "next/router";
+import "./home.css";
 
 export default function Home(props) {
   const router = useRouter();
@@ -92,24 +93,22 @@ export default function Home(props) {
   };
 
   return (
-    <div className="bg-black">
-      <Center>
-        <Camera
-          ref={camera}
-          numberOfCamerasCallback={setNumberOfCameras}
-          facingMode="user"
-          aspectRatio={ratio}
-          className="w-full h-full"
-        />
-        <img
-          src="/camera.svg"
-          width="70px"
-          height="70px"
-          alt="Logo"
-          style={imageCamera}
-          onClick={capture}
-        />
-      </Center>
+    <div className="full">
+      <Camera
+        ref={camera}
+        numberOfCamerasCallback={setNumberOfCameras}
+        facingMode="user"
+        aspectRatio={ratio}
+        className="w-full h-full"
+      />
+      <img
+        src="/camera.svg"
+        width="70px"
+        height="70px"
+        alt="Logo"
+        style={imageCamera}
+        onClick={capture}
+      />
     </div>
   );
 }

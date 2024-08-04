@@ -4,6 +4,13 @@ import numpy as np
 import io
 from PIL import Image
 from flask_cors import CORS
+import os
+
+app = Flask(__name__)
+
+# Load the trained model
+model = joblib.load('/Users/sidak/Development/kattyHacks/ml/Random Forest Model.pkl')
+CORS(app)
 
 app = Flask(__name__)
 
@@ -57,20 +64,16 @@ def predict():
         # Read the image file
         image = Image.open(io.BytesIO(file.read()))
         feature_vector = image_to_feature_vector(image)
-        # feature_vector = image_to_feature_vector(image)
-        # print("Normalized feature vector:", feature_vector)
 
         features_vector = np.round(feature_vector * 255).astype(int)
-        print( features_vector)
+        print(features_vector)
 
-        feature_vector_list = feature_vector.tolist()
-
-        # Prepare data for prediction
         data = {
-            'features': feature_vector_list
+            'features': np.round(feature_vector * 255).astype(int).tolist()
         }
 
-        # Ensure 'features' is present in the JSON data
+        print(data)
+
         if 'features' not in data:
             return jsonify({'error': 'No features found in request'}), 400
 

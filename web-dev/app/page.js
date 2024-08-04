@@ -12,6 +12,7 @@ export default function Home() {
   const [mobileScreen] = useMediaQuery("(min-width: 600px)");
   const [ratio, setRatio] = useState(9 / 16);
   const [word, setWord] = useState("");
+  const [selectedLanguage, setSelectedLanguage] = useState("");
 
   const letters = [
     "a",
@@ -114,6 +115,24 @@ export default function Home() {
       });
   };
 
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const wordTest = "hello";
+
+  const test = () => {
+    if (currentIndex < wordTest.length) {
+      setWord(word + wordTest[currentIndex]);
+      setCurrentIndex(currentIndex + 1);
+    }
+  };
+
+  useEffect(() => {
+    if (selectedLanguage === "French") {
+      setWord("Bonjour");
+    } else if (selectedLanguage === "Spanish") {
+      setWord("Hola");
+    }
+  }, [selectedLanguage]);
+
   return (
     <div
       className="full overflow-clip"
@@ -129,14 +148,64 @@ export default function Home() {
         />
         <button
           className="p-2 bg-opacity-60 w-[100px] h-[100px] z-10 absolute bottom-[5%] bg-[#D9D9D9] flex justify-center items-center rounded-[50%]"
-          onClick={capture}
+          onClick={test}
         >
           <img src="/camera.svg" width="50px" height="50px" alt="Logo" />
         </button>
         <div className="text-[28px] p-2 bg-opacity-60 min-w-[100px] z-10 h-[50px] absolute top-[5%] left-[7%] bg-[#D9D9D9] flex justify-center items-center rounded-[10px]">
           Word: {word}
         </div>
+        <div className="text-[28px] p-2 bg-opacity-60 min-w-[100px] z-10 h-[50px] absolute top-[5%] right-[7%] bg-[#D9D9D9] flex justify-center items-center rounded-[10px]">
+          <Dropdown
+            selectedLanguage={selectedLanguage}
+            setSelectedLanguage={setSelectedLanguage}
+          />
+        </div>
       </div>
     </div>
   );
 }
+
+const Dropdown = ({ selectedLanguage, setSelectedLanguage }) => {
+  const languages = [
+    "English",
+    "Mandarin",
+    "Hindi",
+    "Spanish",
+    "French",
+    "Arabic",
+    "Bengali",
+  ];
+
+  const handleSelect = (event) => {
+    setSelectedLanguage(event.target.value);
+  };
+
+  return (
+    <div className="relative inline-block w-64">
+      <select
+        value={selectedLanguage}
+        onChange={handleSelect}
+        className="block appearance-none w-full bg-inherit rounded shadow leading-tight focus:outline-none focus:shadow-outline"
+      >
+        <option value="" disabled>
+          Select language
+        </option>
+        {languages.map((language, index) => (
+          <option key={index} value={language}>
+            {language}
+          </option>
+        ))}
+      </select>
+      <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+        <svg
+          className="fill-current h-4 w-4"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 20 20"
+        >
+          <path d="M10 12l-5-5h10l-5 5z" />
+        </svg>
+      </div>
+    </div>
+  );
+};
