@@ -4,6 +4,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { useMediaQuery } from "@chakra-ui/react";
 import { Camera } from "react-camera-pro";
 import axios from "axios";
+import "./globals.css";
 
 export default function Home() {
   const camera = useRef(null);
