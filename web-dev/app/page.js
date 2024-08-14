@@ -1,5 +1,5 @@
 "use client";
-
+//work
 import React, { useState, useRef, useEffect } from "react";
 import { useMediaQuery } from "@chakra-ui/react";
 import { Camera } from "react-camera-pro";
