@@ -125,4 +125,4 @@ Check out the [Devpost](https://devpost.com/software/unisign-hizcsr)
 Check out the [Video](https://www.youtube.com/watch?si=q5li8DNr-MmDD7zE&embeds_referring_euri=https%3A%2F%2Fdevpost.com%2F&source_ve_path=Mjg2NjQsMTY0NTA2&v=hGQ9MMXsd_k&feature=youtu.be)
 
 ### Screenshots
-![screenshot](https://github.com/Sidak08/kattyHacks/screenshots/Screen%20Shot%202024-08-28%20at%208.56.22%20PM.png?raw=true)
+![screenshot](https://github.com/Sidak08/katyHacks/blob/main/Screen%20Shot%202024-08-28%20at%208.56.22%20PM.png?raw=true)
