@@ -1,7 +1,3 @@
-Here’s the updated README with instructions on how to run UniSign:
-
----
-
 # UniSign
 
 UniSign is a groundbreaking application designed to translate sign language into text and then into various spoken languages. This project aims to assist individuals who are deaf or hard of hearing by providing a tool that facilitates communication across different languages.
